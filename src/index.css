@@ -1,0 +1,143 @@
+@import 'tailwindcss';
+
+/* Kalibrační pracoviště: chladné neutrální tóny s nádechem do modra, kobaltový akcent. */
+:root {
+  --bg: #eceef2;
+  --surface: #ffffff;
+  --sunk: #f4f5f8;
+  --ink: #151922;
+  --muted: #5a6272;
+  --line: #d3d8e1;
+  --accent: #2445d2;
+  --accent-ink: #ffffff;
+  --accent-soft: #e3e8fb;
+  --ok: #137a4b;
+  --bad: #b4232f;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0e1117;
+    --surface: #161a22;
+    --sunk: #1c212b;
+    --ink: #e6e9ef;
+    --muted: #9aa2b1;
+    --line: #2a303c;
+    --accent: #8198ff;
+    --accent-ink: #0e1117;
+    --accent-soft: #232b4a;
+    --ok: #4fcb8e;
+    --bad: #ff7a84;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1117;
+  --surface: #161a22;
+  --sunk: #1c212b;
+  --ink: #e6e9ef;
+  --muted: #9aa2b1;
+  --line: #2a303c;
+  --accent: #8198ff;
+  --accent-ink: #0e1117;
+  --accent-soft: #232b4a;
+  --ok: #4fcb8e;
+  --bad: #ff7a84;
+  color-scheme: dark;
+}
+
+/* Tokeny jako Tailwind barvy: bg-surface, text-muted, border-line, bg-accent… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+}
+
+@theme {
+  --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Scény v náhledu – napodobují prostředí trenažérů, proto mají pevné barvy v obou motivech. */
+@layer components {
+  .scene {
+    position: relative;
+    overflow: hidden;
+  }
+  .scene-ball {
+    position: absolute;
+    border-radius: 9999px;
+    aspect-ratio: 1;
+    pointer-events: none;
+  }
+  .scene-kovaak {
+    background-color: #3b3e44;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .scene-kovaak .scene-ball {
+    width: 18%;
+    left: 58%;
+    top: 22%;
+    background: radial-gradient(circle at 35% 30%, #ff8a7a, #d1322a 55%, #7d1610);
+  }
+  .scene-aimlab {
+    background-color: #1e2a44;
+    background-image:
+      linear-gradient(rgb(120 170 255 / 0.13) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(120 170 255 / 0.13) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .scene-aimlab .scene-ball {
+    width: 16%;
+    left: 24%;
+    top: 58%;
+    background: radial-gradient(circle at 35% 30%, #b9fbff, #2dc6d8 55%, #0d6170);
+  }
+  .scene-sky {
+    background: linear-gradient(#8fc3ee, #cfe6f7 62%, #9aa97f 62%, #7e8c63);
+  }
+  .scene-sky .scene-ball {
+    width: 14%;
+    left: 62%;
+    top: 44%;
+    background: radial-gradient(circle at 35% 30%, #ffe9a8, #e7a72c 55%, #8a5b0c);
+  }
+  .scene-wall {
+    background-color: #d8d2c4;
+    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.05) 50%, transparent 50%);
+    background-size: 120px 100%;
+  }
+  .scene-wall .scene-ball {
+    width: 14%;
+    left: 20%;
+    top: 30%;
+    background: radial-gradient(circle at 35% 30%, #d4ffb8, #58b52d 55%, #245610);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
